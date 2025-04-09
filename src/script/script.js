@@ -26,6 +26,12 @@ let score = 0;
 let selectedAnswer = null;
 let timerInterval;
 
+function startQuiz() {
+  document.getElementById("intro").style.display = "none";
+  document.querySelector(".container").style.display = "block";
+  loadQuestion();
+}
+
 function loadQuestion() {
   clearInterval(timerInterval); // reset timer
   let q = questions[currentQuestionIndex];
@@ -165,6 +171,8 @@ function startTimer() {
     }
   }, 1000);
 }
+
+document.querySelector(".container").style.display = "none";
 
 document.getElementById("nextBtn").onclick = nextQuestion;
 document.getElementById("nextBtn").style.display = "none";

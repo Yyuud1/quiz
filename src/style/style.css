@@ -13,6 +13,32 @@ body {
   height: 100vh;
 }
 
+.intro-screen {
+  text-align: center;
+  padding: 40px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  margin: 80px auto;
+}
+
+.intro-screen h2 {
+  margin-bottom: 10px;
+  font-size: 24px;
+}
+
+.intro-screen button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  font-weight: bold;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
 .container {
   background: white;
   padding: 30px;
