@@ -15,7 +15,7 @@ const questions = [
     answer: "mendoyong",
   },
   {
-    question: "siapa yang sering dianggap salah walopun dia emg ga salah",
+    question: "Siapa yang sering dianggap salah walopun dia emg ga salah?",
     options: ["aldin", "rifaldy", "ambo", "yuda"],
     answer: "aldin",
   },
@@ -24,8 +24,10 @@ const questions = [
 let currentQuestionIndex = 0;
 let score = 0;
 let selectedAnswer = null;
+let timerInterval;
 
 function loadQuestion() {
+  clearInterval(timerInterval); // reset timer
   let q = questions[currentQuestionIndex];
   document.getElementById("question").textContent = q.question;
   let optionsDiv = document.getElementById("options");
@@ -42,6 +44,7 @@ function loadQuestion() {
 
   updateProgress();
   document.getElementById("nextBtn").style.display = "block";
+  startTimer(); // start new timer
 }
 
 function selectAnswer(button, selected) {
@@ -54,11 +57,12 @@ function selectAnswer(button, selected) {
 function nextQuestion() {
   if (selectedAnswer === null) return;
 
+  clearInterval(timerInterval);
+
   let correctAnswer = questions[currentQuestionIndex].answer;
   let options = document.querySelectorAll(".option");
-  if (selectedAnswer === correctAnswer) {
-    score++;
-  }
+
+  if (selectedAnswer === correctAnswer) score++;
 
   options.forEach((btn) => {
     btn.disabled = true;
@@ -82,7 +86,33 @@ function nextQuestion() {
   }, 100);
 }
 
+function autoNextQuestion() {
+  // Auto lanjut kalau waktu habis tanpa klik
+  if (selectedAnswer === null) {
+    let options = document.querySelectorAll(".option");
+    let correctAnswer = questions[currentQuestionIndex].answer;
+
+    options.forEach((btn) => {
+      btn.disabled = true;
+      if (btn.textContent === correctAnswer) {
+        btn.classList.add("correct");
+      }
+    });
+  }
+
+  setTimeout(() => {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+      loadQuestion();
+    } else {
+      showResult();
+    }
+  }, 500);
+}
+
 function showResult() {
+  clearInterval(timerInterval);
+
   const quizContainer = document.getElementById("quiz");
   const percent = Math.round((score / questions.length) * 100);
   let message =
@@ -95,12 +125,13 @@ function showResult() {
       : "Coba lagi ya!";
 
   document.getElementById("progress").style.width = "100%";
+  document.querySelector(".circle-timer").style.display = "none";
 
   quizContainer.innerHTML = `
-      <p id='result'>Skor Anda: ${score}/${questions.length} (${percent}%)</p>
-      <p style="margin-top: 10px;">${message}</p>
-      <button onclick="location.reload()">Ulangi Quiz</button>
-    `;
+        <p id='result'>Skor Anda: ${score}/${questions.length} (${percent}%)</p>
+        <p style="margin-top: 10px;">${message}</p>
+        <button id="restartBtn" onclick="location.reload()">Ulangi Quiz</button>
+      `;
 }
 
 function updateProgress() {
@@ -109,6 +140,33 @@ function updateProgress() {
   progress.style.width = percent + "%";
 }
 
+// CIRCULAR TIMER
+function startTimer() {
+  const circle = document.getElementById("progressCircle");
+  const timeText = document.getElementById("timeText");
+  let timeLeft = 10;
+  const radius = 28;
+  const circumference = 2 * Math.PI * radius;
+
+  circle.style.strokeDasharray = circumference;
+  circle.style.strokeDashoffset = 0;
+  timeText.textContent = timeLeft;
+
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    timeText.textContent = timeLeft;
+
+    const offset = circumference - (timeLeft / 10) * circumference;
+    circle.style.strokeDashoffset = offset;
+
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      autoNextQuestion();
+    }
+  }, 1000);
+}
+
 document.getElementById("nextBtn").onclick = nextQuestion;
 document.getElementById("nextBtn").style.display = "none";
+
 loadQuestion();
