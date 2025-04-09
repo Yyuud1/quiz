@@ -1,0 +1,105 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #f3f4f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.container {
+  background: white;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  max-width: 450px;
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.question {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.option {
+  background: #f0f0f0;
+  color: #333;
+  border: 2px solid transparent;
+  padding: 12px;
+  margin: 8px 0;
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
+.option:hover {
+  background: #dbeafe;
+}
+
+.option.selected {
+  background: #3b82f6;
+  color: #fff;
+}
+
+.option.correct {
+  background: #16a34a;
+  color: #fff;
+}
+
+.option.wrong {
+  background: #ef4444;
+  color: #fff;
+}
+
+#nextBtn {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 15px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+#nextBtn:hover {
+  background: #4f46e5;
+}
+
+#result {
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 20px;
+  color: #111827;
+}
+
+/* Progress Bar */
+#progress-bar-container {
+  height: 10px;
+  width: 100%;
+  background: #e5e7eb;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+#progress {
+  height: 100%;
+  width: 0%;
+  background: #3b82f6;
+  transition: width 0.4s ease-in-out;
+}
