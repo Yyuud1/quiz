@@ -1,23 +1,41 @@
 const questions = [
   {
-    question: "Apa ibukota Indonesia?",
-    options: ["Jakarta", "Bandung", "Surabaya", "Bali"],
-    answer: "Jakarta",
+    question:
+      "Apa kegiatan buang-buang waktu dan berdosa yang kebanyakan dilakukan manusia?",
+    options: [
+      "Gibah",
+      "Urusin Hidup Orang",
+      "Dak Senang Melihat Orang Suskes",
+      "Sabar & ikhtiar",
+    ],
+    answer: "gibah",
   },
   {
-    question: "Berapakah hasil dari 5 + 3?",
-    options: ["5", "7", "8", "10"],
-    answer: "8",
+    question:
+      "andi berjalan dengan kecepatan 50km/h dengan motor, jarak yang ditepuh andi 100km, siapa nama bapak andi ?",
+    options: ["Salman", "Andianto", "Surya", "Solimin"],
+    answer: "Andianto",
   },
   {
-    question: "Apa makanan kesukaan ambo skom?",
-    options: ["mendoyong", "rich", "bakso kematian", "nasi padang"],
-    answer: "mendoyong",
+    question: "apa kepanjangan USB?",
+    options: [
+      "Universal Serial Bus",
+      "Unit Sentral Bus",
+      "Ugh Sakit Bang",
+      "Udah Siap Bangkit",
+    ],
+    answer: "Universal Serial Bus",
   },
   {
-    question: "Siapa yang sering dianggap salah walopun dia emg ga salah?",
-    options: ["aldin", "rifaldy", "ambo", "yuda"],
-    answer: "aldin",
+    question:
+      "manusia yang selalu dianggap salah. namun jika tidak ada dia, dunia tidak akan berevolusi seperti sekarang?",
+    options: ["alien", "laki-laki", "perempuan", "monster"],
+    answer: "laki-laki",
+  },
+  {
+    question: "Negara terbesar",
+    options: ["indonesia", "russia", "amerika", "argentina"],
+    answer: "russia",
   },
 ];
 
@@ -33,7 +51,7 @@ function startQuiz() {
 }
 
 function loadQuestion() {
-  clearInterval(timerInterval); // reset timer
+  clearInterval(timerInterval);
   let q = questions[currentQuestionIndex];
   document.getElementById("question").textContent = q.question;
   let optionsDiv = document.getElementById("options");
@@ -50,7 +68,7 @@ function loadQuestion() {
 
   updateProgress();
   document.getElementById("nextBtn").style.display = "block";
-  startTimer(); // start new timer
+  startTimer();
 }
 
 function selectAnswer(button, selected) {
@@ -93,7 +111,6 @@ function nextQuestion() {
 }
 
 function autoNextQuestion() {
-  // Auto lanjut kalau waktu habis tanpa klik
   if (selectedAnswer === null) {
     let options = document.querySelectorAll(".option");
     let correctAnswer = questions[currentQuestionIndex].answer;
@@ -125,10 +142,10 @@ function showResult() {
     percent === 100
       ? "Sempurna!"
       : percent >= 75
-      ? "Hebat!"
-      : percent >= 50
       ? "Lumayan!"
-      : "Coba lagi ya!";
+      : percent >= 50
+      ? "Tolol!"
+      : "Emang Bodoh!";
 
   document.getElementById("progress").style.width = "100%";
   document.querySelector(".circle-timer").style.display = "none";
